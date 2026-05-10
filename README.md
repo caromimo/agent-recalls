@@ -9,7 +9,7 @@ This project is using [uv](https://docs.astral.sh/uv/) to manage packages. It is
 ## Set up
 Create a .gitignore file in the parent folder. Add `**/*.env` to the file, to ensure that your gemini key does not get committed.
 
-Once your gemini key is saved in the .env file, you can run the following instead of installing dotenv and importing it at the beginning of the script: 
+Once your gemini key is saved in the `.env` file in the root folder, you can start the adk web server by running the following command:
 ```shell 
-uv run --env-file my_agent/.env
-``` 
+uv run --env-file .env adk web
+```
