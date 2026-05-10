@@ -29,4 +29,4 @@ recall_agent/
 ```
 
 ## Important Note
--Never put your api keys in the code. Ensure they are loaded using the environment variables.
+Never put your api keys in the code. Ensure they are loaded using the environment variables.
