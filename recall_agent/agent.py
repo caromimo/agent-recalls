@@ -1,22 +1,5 @@
 from google.adk.agents.llm_agent import Agent
-import duckdb
-import os
-
-# Initialize DuckDB
-connection = duckdb.connect();
-
-# Define tool to count recalls from April 2026
-def count_April_2026_recalls() -> int:
-    """
-    Filter and count all recalls from April 2026
-    """
-    data_path = os.path.join(os.path.dirname(__file__), 'data', 'HCRSAMOpenData.csv')
-    return connection.execute(
-        f"""
-        SELECT COUNT(*) as "Total Recalls in April 2026" FROM '{data_path}'
-        WHERE "Last updated" >= '2026-04-01'
-        AND "Last updated" < '2026-05-01'
-        """).fetchone()[0]
+from .tools.database_tools import count_April_2026_recalls
 
 
 # Define the agent
