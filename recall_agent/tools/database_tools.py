@@ -1,5 +1,6 @@
 import duckdb
 import os
+import datetime
 
 # Initialize DuckDB
 connection = duckdb.connect()
@@ -31,3 +32,36 @@ def count_recalls_by_month_and_year(year: int, month_name: str) -> int:
         """,
         {"year": year, "month": month_num}
     ).fetchone()[0]
+
+def search_recalls_by_keyword(keyword: str) -> list[dict]:
+    """
+    Search for recalls containing a specific keyword.
+    
+    Args:
+        keyword: The keyword to search for (e.g., "peptides")
+    """
+    
+    result = connection.execute(
+        """
+        SELECT * FROM read_csv_auto($data_path)
+        WHERE Title ILIKE $keyword 
+        OR Product ILIKE $keyword 
+        OR Issue ILIKE $keyword
+        """,
+        {
+        "data_path": "recall_agent/data/HCRSAMOpenData.csv", 
+        "keyword": f"%{keyword}%"
+        }
+    )
+    
+    columns = [col[0] for col in result.description]
+    rows = []
+    for row in result.fetchall():
+        row_dict = {}
+        for i, val in enumerate(row):
+            if isinstance(val, (datetime.date, datetime.datetime)):
+                row_dict[columns[i]] = val.isoformat()
+            else:
+                row_dict[columns[i]] = val
+        rows.append(row_dict)
+    return rows
