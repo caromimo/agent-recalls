@@ -40,7 +40,12 @@ def search_recalls_by_keyword(keyword: str) -> list[dict]:
     Args:
         keyword: The keyword to search for (e.g., "peptides")
     """
-    
+    # Drop a trailing 's' if it exists (but not 'ss' like "glass")
+    # This allows a search for 'peptides' to become '%peptide%', which matches both.
+    base_keyword = keyword.strip()
+    if base_keyword.lower().endswith('s') and not base_keyword.lower().endswith('ss'):
+        base_keyword = base_keyword[:-1]
+        
     result = connection.execute(
         """
         SELECT * FROM read_csv_auto($data_path)
@@ -50,7 +55,7 @@ def search_recalls_by_keyword(keyword: str) -> list[dict]:
         """,
         {
         "data_path": "recall_agent/data/HCRSAMOpenData.csv", 
-        "keyword": f"%{keyword}%"
+        "keyword": f"%{base_keyword}%"
         }
     )
     
