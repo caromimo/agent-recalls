@@ -10,31 +10,29 @@ class Tool():
     def __init__(self, data_path="recall_agent/data/HCRSAMOpenData.csv"):
         self.data_path = data_path
         
-    def count_recalls_by_month_and_year(self, year: int, month_name: str) -> int:
+    def count_recalls_by_month_and_year(self, year: int, month: str) -> int:
         """
         Filter and count all recalls for a specific month and year.
         
         Args:
             year: The year to query (e.g., 2026)
-            month_name: The name of the month to query (e.g., "May", "January")
+            month: The name of the month to query (e.g., "May", "January"). Must be in English.
         """
-        month_map = {
-            "january": 1, "february": 2, "march": 3, "april": 4,
-            "may": 5, "june": 6, "july": 7, "august": 8,
-            "september": 9, "october": 10, "november": 11, "december": 12
+        clean_month = month.lower().strip()
+        valid_months = {
+            "january", "february", "march", "april", "may", "june",
+            "july", "august", "september", "october", "november", "december"
         }
-        
-        month_num = month_map.get(month_name.lower().strip())
-        if not month_num:
+        if clean_month not in valid_months:
             raise ValueError("Invalid month name provided.")
 
         return connection.execute(
-            f"""
-            SELECT COUNT(*) as "Total Recalls in Period" FROM '{self.data_path}'
-            WHERE EXTRACT(year FROM CAST("Last updated" AS DATE)) = $year
-            AND EXTRACT(month FROM CAST("Last updated" AS DATE)) = $month
+            """
+            select count(*) as "Total Recalls in Period" from read_csv($data_path) 
+            where lower(monthname("Last updated")) = $month and 
+            year("Last updated") = $year
             """,
-            {"year": year, "month": month_num}
+            {"data_path": self.data_path, "year": year, "month": clean_month}
         ).fetchone()[0]
         
     def search_recalls_by_keyword(self, keyword: str) -> list[dict]:
