@@ -21,11 +21,15 @@ The data used for this project is not included in the current repository. You ca
 ```
 recall_agent/
 ├── data/
-│   └── HCRSAMOpenData.csv     <-- Put your csv here!
+│   └── HCRSAMOpenData.csv          <-- Put your test csv here
+├── tests/
+│   ├── data/
+│   |   └── TestData.csv            <-- Put your test csv here
+│   └── test_database_tools.py      <-- Put your duckdb test queries here
 ├── tools/
 │   ├── __init__.py
-│   └── database_tools.py      <-- Put your duckdb queries here!
-├── agent.py                   <-- Only contains the Agent definition
+│   └── database_tools.py           <-- Put your duckdb queries here
+├── agent.py                        <-- Define the agent here
 ```
 
 ## Important Note
