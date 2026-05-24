@@ -21,7 +21,7 @@ The data used for this project is not included in the current repository. You ca
 ```
 recall_agent/
 ├── data/
-│   └── HCRSAMOpenData.csv          <-- Put your test csv here
+│   └── HCRSAMOpenData.csv          <-- Put your csv here
 ├── tests/
 │   ├── data/
 │   |   └── TestData.csv            <-- Put your test csv here
