@@ -39,3 +39,17 @@ To execute the test suite, run the following command from the root directory:
 ```bash
 uv run pytest
 ```
+
+To replicate the test data to ensure the same results from the tests, you can filter the recall dataset to include only recalls related to Drugs, Class Type III, reported between January 1, 2020 and May 9, 2026. Here is the query that can be run in after changing to the directory containing the data:
+
+
+```bash
+uv run duckdb
+copy(
+    select * from 'TestHCRSAMOpenData.csv' 
+    where Category = 'Drugs' 
+    and "Recall class" = 'Type III' 
+    and "Last updated" > '2019-12-31' 
+    and Archived = '0') 
+to 'TestData.csv';
+```
