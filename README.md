@@ -30,3 +30,12 @@ recall_agent/
 
 ## Important Note
 Never put your api keys in the code. Ensure they are loaded using the environment variables.
+
+## Testing
+This project uses `pytest` for unit testing to ensure the reliability of the agent's database tools. 
+
+To execute the test suite, run the following command from the root directory:
+
+```bash
+uv run pytest
+```
