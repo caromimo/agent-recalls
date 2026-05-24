@@ -12,12 +12,20 @@ dependencies = [
     { name = "pytest" },
 ]
 
+[package.dev-dependencies]
+dev = [
+    { name = "pytest" },
+]
+
 [package.metadata]
 requires-dist = [
     { name = "duckdb", specifier = ">=1.5.2" },
     { name = "google-adk", specifier = ">=1.33.0" },
     { name = "pytest", specifier = ">=9.0.3" },
 ]
+
+[package.metadata.requires-dev]
+dev = [{ name = "pytest", specifier = ">=9.0.3" }]
 
 [[package]]
 name = "aiohappyeyeballs"
