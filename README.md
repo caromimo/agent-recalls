@@ -1,4 +1,4 @@
-# Recall Agent
+# Recall Expert
 
 ## Purpose
 The purpose of this project is to build an agent and specific tools to safely and effectively explore the publicly available [recalls, advisories and safety alers](https://recalls-rappels.canada.ca/en). The dataset is also available on [Open Government](https://open.canada.ca/data/en/dataset/d38de914-c94c-429b-8ab1-8776c31643e3).
